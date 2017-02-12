@@ -15,8 +15,33 @@
                 version    : 'v2.8'
             });
             FB.AppEvents.logPageView();
-            var response = FB.api("/1466473596947283/insights/page_fans_gender_age?access_token=" + accessToken);
-            console.log(response);
+
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    // the user is logged in and has authenticated your app
+                    var uid = response.authResponse.userID;
+                    var accessToken = response.authResponse.accessToken;
+                } else if (response.status === 'not_authorized') {
+                    // the user is logged in to Facebook but has not authenticated your app
+                    FB.login(function(response) {
+                        if (response.authResponse) {
+                            console.log('Welcome!  Fetching your information.... ');
+                            FB.api('/me', function(response) {
+                                console.log('Good to see you, ' + response.name + '.');
+                            });
+                        } else {
+                            console.log('User cancelled login or did not fully authorize.');
+                        }
+                    });
+                }
+            });
+
+            FB.api("/1466473596947283/insights/page_fans_gender_age", {access_token: accessToken}, function(response) {
+                console.log(response);
+            });
+            FB.api('/113124472034820', function(response) {
+                console.log(response);
+            });
         };
 
         (function(d, s, id){
@@ -26,6 +51,10 @@
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
+
+        function promptLogin() {
+
+        }
     </script>
     Hello, world
     <div class="fb-like" data-share="true" data-width="450" data-show-faces="true"></div>

@@ -21,6 +21,7 @@
                 if (response.status === 'connected') {
                     // user is logged in and has authenticated your app
                     $('#loginBtn').hide(); // hide the login button
+                    $('#greetings').html('<h2 class="header">Good to see you, ' + response.name + '.</h2>');
                     var uid = response.authResponse.userID;
                     var accessToken = response.authResponse.accessToken;
                     getPages(accessToken);
@@ -52,7 +53,7 @@
                     // user cancelled login or did not fully authorize.
                     console.log('User cancelled login or did not fully authorize.');
                 }
-            }, {scope: 'manage_pages,read_insights'});
+            }, {scope: 'manage_pages,read_insightsgit'});
         }
 
         function getPages(accessToken) {

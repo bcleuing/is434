@@ -79,8 +79,8 @@
                 var values = (response.data[0] == null) ? null : response.data[0].values;
                 if (values != null) {
                     var stat = values[values.length-1].value; // get the latest statistic
-                    var statTableHTML = "<div class='row'><div class='col s12'><table class='centered bordered'><caption>Fan Statistics for " + pageName + "</caption>" +
-                        "<tr><th>Gender\\Age Group</th><th>13-17</th><th>18-24</th><th>25-34</th><th>35-44</th><th>45-54</th><th>55-64</th><th>65+</th><th>total</th></tr>";
+                    var statTableHTML = "<div class='row'><div class='col s12'><h3 class='center-align'>Fan Statistics for " + pageName + "</h3><table class='centered bordered'><thead>" +
+                        "<tr><th></th><th>13-17</th><th>18-24</th><th>25-34</th><th>35-44</th><th>45-54</th><th>55-64</th><th>65+</th><th>total</th></tr></thead><tbody>";
                     var formattedStat = {
                         "Female": [0,0,0,0,0,0,0],
                         "Male": [0,0,0,0,0,0,0],
@@ -104,7 +104,7 @@
                         var totalFans = fansByAgeGroups.reduce(function(a, b) { return a + b; }, 0);
                         statTableHTML += "<td>" + totalFans + "</tr>";
                     }
-                    $('#pagesFanInfo').append(statTableHTML + "</table></div>"); // render the table to the page
+                    $('#pagesFanInfo').append(statTableHTML + "</tbody></table></div>"); // render the table to the page
                 }
             });
         }

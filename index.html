@@ -72,18 +72,42 @@
             FB.api("/" + pageId + "/insights/page_fans_gender_age", {access_token: accessToken}, function(response) {
                 console.log(response);
                 var values = response.data[0].values;
-                var stat = values[values.length-1].value; // get the latest statistic
-                console.log(stat);
-                $('#pagesFanInfo').append(
-                    "<table><caption>Fan Statistics for " + pageName + "</caption>" +
-                    "<tr><th></th><th>13-17</th><th>18-24</th><th>25-34</th><th>35-44</th><th>45-54</th><th>55-64</th><th>65+</th></tr>"
-                )
-                for (var ageGroup in stat) {
-                    if (stat.hasOwnProperty(ageGroup)) {
-                        console.log(ageGroup + " - " + stat[ageGroup]);
+                if (values != null) {
+                    var stat = values[values.length-1].value; // get the latest statistic
+                    $('#pagesFanInfo').append(
+                        "<table><caption>Fan Statistics for " + pageName + "</caption>" +
+                        "<tr><th></th><th>13-17</th><th>18-24</th><th>25-34</th><th>35-44</th><th>45-54</th><th>55-64</th><th>65+</th></tr>"
+                    )
+                    var formattedStat = {
+                        "Female": [0,0,0,0,0,0,0],
+                        "Male": [0,0,0,0,0,0,0],
+                        "Unknown": [0,0,0,0,0,0,0]
+                    }; // declare an object to store the number of fans by gender by age groups
+                    var ageGroupPos = ["13-17", "18-24", "25-34", "35-44", "45-54", "55-64", "65+"];
+                    for (var key in stat) {
+                        if (stat.hasOwnProperty(key)) {
+                            var gender = getFullGender(key.split(".")[0]);
+                            var ageGroup = key.split(".")[1];
+                            var numOfFans = stat[key];
+                            formattedStat[gender][ageGroupPos.indexOf(ageGroup)] = numOfFans;
+                        }
                     }
+                    for (var genderKey in formattedStat) {
+                        $('#pagesFanInfo').append("<tr><td>" + genderKey + "</td>");
+                        var fansByAgeGroups = formattedStat[genderKey];
+                        for (var i = 0; i < fansByAgeGroups.length; i++) {
+                            $('#pagesFanInfo').append("<td>" + fansByAgeGroups[i] + "</td>");
+                        }
+                        $('#pagesFanInfo').append("</tr>");
+                    }
+                    $('#pagesFanInfo').append("</table>");
                 }
             });
+        }
+        function getFullGender(shortForm) {
+            if (shortForm == "F") return "Female";
+            else if (shortForm == "M") return "Male";
+            else return "Unknown";
         }
     </script>
     <button onclick="_promptLogin()">Start Using the App</button>

@@ -7,8 +7,6 @@
 </head>
 <body>
     <script>
-        var accessToken = "EAARhS4jcMvkBAA0FKELOytVu3AoiLoGZBbi4NrTYcC76oGLRKfYyChektpsk7RAGynxrNl3wrf04GZC5B30JoV9efLL8DFw1kvCi9NfjGIDRf7hKpdXxw3klX7xHGZBTa5iFTcYl260xBtZBDFhGF6UMeifMgZA8WDUypyh580QZDZD";
-
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '1232876953416441',
@@ -25,10 +23,6 @@
                 } else if (response.status === 'not_authorized') {
                     // the user is logged in to Facebook but has not authenticated your app
                 }
-            });
-
-            FB.api("/1466473596947283/insights/page_fans_gender_age", {access_token: accessToken}, function(response) {
-                console.log(response);
             });
         };
 
@@ -47,13 +41,34 @@
                     FB.api('/me', function(response) {
                         console.log('Good to see you, ' + response.name + '.');
                     });
+                    getPages(response.authResponse.accessToken);
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
             });
         }
+
+        function getPages(accessToken) {
+            FB.api("/me/accounts", {access_token: accessToken}, function(response) {
+                var pages = response.data;
+                var numOfPage = pages.length;
+                if (numOfPage <= 0) $('#pages').html("<h2>No pages found in your accounts.</h2>");
+                else { // list out the information of all pages
+                    $('#pages').append("<h2>List of your pages</h2>");
+                    for (var i = 0; i < pages.length; i++) {
+                        var page = pages[i];
+                        $('#pages').append(page.name + " (" + page.id + ")");
+                    }
+                }
+            });
+        }
+        function getPageFanInfo(pageId, accessToken) {
+            FB.api("/" + pageId + "/insights/page_fans_gender_age", {access_token: accessToken}, function(response) {
+                console.log(response);
+            });
+        }
     </script>
     <button onclick="_promptLogin()">Start Using the App</button>
-
+    <div id="pages"></div>
 </body>
 </html>

@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html>
-<body>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<head>
     <link rel="stylesheet" href="style.css" />
-    <title>jQuery Example</title>
+    <title>IS434 - Facebook App</title>
+</head>
+<body>
     <script>
-        $(document).ready(function() {
-            $.ajaxSetup({ cache: true });
-            $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
-                FB.init({
-                    appId: '1232876953416441',
-                    version: 'v2.7' // or v2.1, v2.2, v2.3, ...
-                });
-                $('#loginbutton,#feedbutton').removeAttr('disabled');
-                FB.getLoginStatus(updateStatusCallback);
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1232876953416441',
+                xfbml      : true,
+                version    : 'v2.8'
             });
-        });
+            FB.AppEvents.logPageView();
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     </script>
     Hello, world
+    <div class="fb-like" data-share="true" data-width="450" data-show-faces="true"></div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script>
+        var accessToken = "EAARhS4jcMvkBAA0FKELOytVu3AoiLoGZBbi4NrTYcC76oGLRKfYyChektpsk7RAGynxrNl3wrf04GZC5B30JoV9efLL8DFw1kvCi9NfjGIDRf7hKpdXxw3klX7xHGZBTa5iFTcYl260xBtZBDFhGF6UMeifMgZA8WDUypyh580QZDZD";
+        var response = FB.api("/1466473596947283/insights/page_fans_gender_age?access_token=" + accessToken);
+        console.log(response);
+    </script>
 </body>
 </html>

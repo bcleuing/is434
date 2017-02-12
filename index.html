@@ -6,6 +6,8 @@
 </head>
 <body>
     <script>
+        var accessToken = "EAARhS4jcMvkBAA0FKELOytVu3AoiLoGZBbi4NrTYcC76oGLRKfYyChektpsk7RAGynxrNl3wrf04GZC5B30JoV9efLL8DFw1kvCi9NfjGIDRf7hKpdXxw3klX7xHGZBTa5iFTcYl260xBtZBDFhGF6UMeifMgZA8WDUypyh580QZDZD";
+
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '1232876953416441',
@@ -13,6 +15,8 @@
                 version    : 'v2.8'
             });
             FB.AppEvents.logPageView();
+            var response = FB.api("/1466473596947283/insights/page_fans_gender_age?access_token=" + accessToken);
+            console.log(response);
         };
 
         (function(d, s, id){
@@ -27,9 +31,7 @@
     <div class="fb-like" data-share="true" data-width="450" data-show-faces="true"></div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script>
-        var accessToken = "EAARhS4jcMvkBAA0FKELOytVu3AoiLoGZBbi4NrTYcC76oGLRKfYyChektpsk7RAGynxrNl3wrf04GZC5B30JoV9efLL8DFw1kvCi9NfjGIDRf7hKpdXxw3klX7xHGZBTa5iFTcYl260xBtZBDFhGF6UMeifMgZA8WDUypyh580QZDZD";
-        var response = FB.api("/1466473596947283/insights/page_fans_gender_age?access_token=" + accessToken);
-        console.log(response);
+
     </script>
 </body>
 </html>

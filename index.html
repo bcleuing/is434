@@ -51,7 +51,9 @@
         }
 
         function getPages(accessToken) {
+            console.log(accessToken);
             FB.api("/me/accounts", {access_token: accessToken}, function(response) {
+                console.log(response);
                 var pages = response.data;
                 var numOfPage = pages.length;
                 if (numOfPage <= 0) $('#pages').html("<h2>No pages found in your accounts.</h2>");
@@ -61,19 +63,28 @@
                         // loop through array of pages and show information for each page
                         var page = pages[i];
                         $('#pages').append("<p>" + page.name + " (" + page.id + ")" + "</p>");
-                        getPageFanInfo(page.id, accessToken);
+                        getPageFanInfo(page.name, page.id, accessToken);
                     }
                 }
             });
         }
-        function getPageFanInfo(pageId, accessToken) {
+        function getPageFanInfo(pageName, pageId, accessToken) {
             FB.api("/" + pageId + "/insights/page_fans_gender_age", {access_token: accessToken}, function(response) {
-                var values = response.data.values;
-                console.log(values[values.length-1].value); // get the latest statistic
+                console.log(response);
+                var values = response.data[0].values;
+                var stat = values[values.length-1].value; // get the latest statistic
+                $('#pagesFanInfo').append(
+                    "<table><caption>Fan Statistics for " + pageName + "</caption>" +
+                    "<tr><th></th><th>13-17</th><th>18-24</th><th>25-34</th><th>35-44</th><th>45-54</th><th>55-64</th><th>65+</th></tr>"
+                )
+                for (var ageGroup in stat) {
+                    console.log(ageGroup + " - " + stat.ageGroup);
+                }
             });
         }
     </script>
     <button onclick="_promptLogin()">Start Using the App</button>
     <div id="pages"></div>
+    <div id="pagesFanInfo"></div>
 </body>
 </html>

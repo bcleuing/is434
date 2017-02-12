@@ -42,6 +42,7 @@
             FB.login(function(response) {
                 if (response.authResponse) {
                     // user authorized the app
+                    $('#loginBtn').hide(); // hide the login button
                     $('#greetings').html('<h2 class="header">Welcome! Fetching your information....</h2>');
                     FB.api('/me', function(response) {
                         $('#greetings').html('<h2 class="header">Good to see you, ' + response.name + '.</h2>');
@@ -79,7 +80,7 @@
                 if (values != null) {
                     var stat = values[values.length-1].value; // get the latest statistic
                     var statTableHTML = "<div class='row'><div class='col s12'><table class='centered bordered'><caption>Fan Statistics for " + pageName + "</caption>" +
-                        "<tr><th></th><th>13-17</th><th>18-24</th><th>25-34</th><th>35-44</th><th>45-54</th><th>55-64</th><th>65+</th><th>total</th></tr>";
+                        "<tr><th>Gender\\Age Group</th><th>13-17</th><th>18-24</th><th>25-34</th><th>35-44</th><th>45-54</th><th>55-64</th><th>65+</th><th>total</th></tr>";
                     var formattedStat = {
                         "Female": [0,0,0,0,0,0,0],
                         "Male": [0,0,0,0,0,0,0],
@@ -113,12 +114,10 @@
             else return "Unknown";
         }
     </script>
-    <div class="valign-wrapper">
-        <h5 class="valign">
-            <button id="loginBtn" class="waves-effect waves-light btn btn-large" onclick="_promptLogin()">Start Using the App</button>
-        </h5>
+    <h5 class="valign center">
+        <button id="loginBtn" class="waves-effect waves-light btn btn-large" onclick="_promptLogin()">Start Using the App</button>
         <div id="greetings"></div>
-    </div>
+    </h5>
     <div class="container">
         <div id="pages"></div>
         <div id="pagesFanInfo"></div>

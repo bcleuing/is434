@@ -3,7 +3,9 @@
 <head>
     <link rel="stylesheet" href="style.css" />
     <title>IS434 - Facebook App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
 </head>
 <body>
     <script>
@@ -18,8 +20,10 @@
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
                     // user is logged in and has authenticated your app
+                    $('#loginBtn').hide(); // hide the login button
                     var uid = response.authResponse.userID;
                     var accessToken = response.authResponse.accessToken;
+                    getPages(accessToken);
                 } else if (response.status === 'not_authorized') {
                     // user is logged in to Facebook but has not authenticated your app
                 }
@@ -38,9 +42,9 @@
             FB.login(function(response) {
                 if (response.authResponse) {
                     // user authorized the app
-                    console.log('Welcome!  Fetching your information.... ');
+                    $('#greetings').html('<h2 class="header">Welcome! Fetching your information....</h2>');
                     FB.api('/me', function(response) {
-                        console.log('Good to see you, ' + response.name + '.');
+                        $('#greetings').html('<h2 class="header">Good to see you, ' + response.name + '.</h2>');
                     });
                     getPages(response.authResponse.accessToken);
                 } else {
@@ -70,11 +74,11 @@
         }
         function getPageFanInfo(pageName, pageId, accessToken) {
             FB.api("/" + pageId + "/insights/page_fans_gender_age", {access_token: accessToken}, function(response) {
-                var values = response.data[0].values;
+                var values = (response.data[0] == null) ? null : response.data[0].values;
                 if (values != null) {
                     var stat = values[values.length-1].value; // get the latest statistic
-                    var statTableHTML = "<table><caption>Fan Statistics for " + pageName + "</caption>" +
-                        "<tr><th></th><th>13-17</th><th>18-24</th><th>25-34</th><th>35-44</th><th>45-54</th><th>55-64</th><th>65+</th></tr>";
+                    var statTableHTML = "<div class='row'><div class='col s12'><table class='centered bordered'><caption>Fan Statistics for " + pageName + "</caption>" +
+                        "<tr><th></th><th>13-17</th><th>18-24</th><th>25-34</th><th>35-44</th><th>45-54</th><th>55-64</th><th>65+</th><th>total</th></tr>";
                     var formattedStat = {
                         "Female": [0,0,0,0,0,0,0],
                         "Male": [0,0,0,0,0,0,0],
@@ -97,7 +101,7 @@
                         }
                         statTableHTML += "</tr>";
                     }
-                    $('#pagesFanInfo').append(statTableHTML + "</table>"); // render the table to the page
+                    $('#pagesFanInfo').append(statTableHTML + "</table></div>"); // render the table to the page
                 }
             });
         }
@@ -107,8 +111,15 @@
             else return "Unknown";
         }
     </script>
-    <button onclick="_promptLogin()">Start Using the App</button>
-    <div id="pages"></div>
-    <div id="pagesFanInfo"></div>
+    <div class="valign-wrapper">
+        <h5 class="valign">
+            <button id="loginBtn" class="waves-effect waves-light btn btn-large" onclick="_promptLogin()">Start Using the App</button>
+        </h5>
+        <div id="greetings"></div>
+    </div>
+    <div class="container">
+        <div id="pages"></div>
+        <div id="pagesFanInfo"></div>
+    </div>
 </body>
 </html>

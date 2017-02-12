@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="style.css" />
     <title>IS434 - Facebook App</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 </head>
 <body>
     <script>
@@ -23,23 +24,10 @@
                     var accessToken = response.authResponse.accessToken;
                 } else if (response.status === 'not_authorized') {
                     // the user is logged in to Facebook but has not authenticated your app
-                    FB.login(function(response) {
-                        if (response.authResponse) {
-                            console.log('Welcome!  Fetching your information.... ');
-                            FB.api('/me', function(response) {
-                                console.log('Good to see you, ' + response.name + '.');
-                            });
-                        } else {
-                            console.log('User cancelled login or did not fully authorize.');
-                        }
-                    });
                 }
             });
 
             FB.api("/1466473596947283/insights/page_fans_gender_age", {access_token: accessToken}, function(response) {
-                console.log(response);
-            });
-            FB.api('/113124472034820', function(response) {
                 console.log(response);
             });
         };
@@ -52,15 +40,20 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
-        function promptLogin() {
-
+        function _promptLogin() {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    console.log('Welcome!  Fetching your information.... ');
+                    FB.api('/me', function(response) {
+                        console.log('Good to see you, ' + response.name + '.');
+                    });
+                } else {
+                    console.log('User cancelled login or did not fully authorize.');
+                }
+            });
         }
     </script>
-    Hello, world
-    <div class="fb-like" data-share="true" data-width="450" data-show-faces="true"></div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script>
+    <button onclick="_promptLogin()">Start Using the App</button>
 
-    </script>
 </body>
 </html>

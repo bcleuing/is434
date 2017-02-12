@@ -61,8 +61,10 @@
                 console.log(response);
                 var pages = response.data;
                 var numOfPage = pages.length;
-                if (numOfPage <= 0) $('#pages').html("<h5>No pages found in your accounts.</h5>");
-                else { // list out the information of all pages in which user is the admin
+                if (numOfPage <= 0) {
+                    $('#pages').html("<h5>No pages found in your accounts.</h5>");
+                    $('#pagesFanInfo').hide();
+                } else { // list out the information of all pages in which user is the admin
                     var pageListHTML = '<h5>List of your pages</h5><div class="collection">';
                     for (var i = 0; i < pages.length; i++) {
                         // loop through array of pages and show information for each page
@@ -118,12 +120,17 @@
         <button id="loginBtn" class="waves-effect waves-light btn btn-large" onclick="_promptLogin()">Start Using the App</button>
     </h5>
     <div class="container">
-        <div id="greetings" class="center"></div>
+        <div class="row">
+            <div class="col s12" id="greetings" class="center"></div>
+        </div>
         <div class="divider"></div>
-        <div id="pages"></div>
-        <div class="divider"></div>
-        <div id="pagesFanInfo">
-            <h5>Fan Statistics</h5>
+        <div class="row">
+            <div class="col s12" id="pages"></div>
+        </div>
+        <div class="row">
+            <div class="col s12" id="pagesFanInfo">
+                <h5>Fan Statistics</h5>
+            </div>
         </div>
     </div>
 </body>

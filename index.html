@@ -62,13 +62,14 @@
                 var numOfPage = pages.length;
                 if (numOfPage <= 0) $('#pages').html("<h2>No pages found in your accounts.</h2>");
                 else { // list out the information of all pages in which user is the admin
-                    $('#pages').append("<h2>List of your pages</h2>");
+                    var pageListHTML = '<ul class="collection with-header"><li class="collection-header"><h4>List of your pages</h4></li>';
                     for (var i = 0; i < pages.length; i++) {
                         // loop through array of pages and show information for each page
                         var page = pages[i];
-                        $('#pages').append("<p>" + page.name + " (" + page.id + ")" + "</p>");
+                        pageListHTML += "<li class='collection-item'>" + page.name + " (" + page.id + ")" + "</li>";
                         getPageFanInfo(page.name, page.id, accessToken);
                     }
+                    $('#pages').append(pageListHTML + '</ul>');
                 }
             });
         }
@@ -99,7 +100,8 @@
                         for (var i = 0; i < fansByAgeGroups.length; i++) {
                             statTableHTML += "<td>" + fansByAgeGroups[i] + "</td>";
                         }
-                        statTableHTML += "</tr>";
+                        var totalFans = fansByAgeGroups.reduce(function(a, b) { return a + b; }, 0);
+                        statTableHTML += "<td>" + totalFans + "</tr>";
                     }
                     $('#pagesFanInfo').append(statTableHTML + "</table></div>"); // render the table to the page
                 }

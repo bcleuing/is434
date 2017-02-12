@@ -17,11 +17,11 @@
 
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
-                    // the user is logged in and has authenticated your app
+                    // user is logged in and has authenticated your app
                     var uid = response.authResponse.userID;
                     var accessToken = response.authResponse.accessToken;
                 } else if (response.status === 'not_authorized') {
-                    // the user is logged in to Facebook but has not authenticated your app
+                    // user is logged in to Facebook but has not authenticated your app
                 }
             });
         };
@@ -37,12 +37,14 @@
         function _promptLogin() {
             FB.login(function(response) {
                 if (response.authResponse) {
+                    // user authorized the app
                     console.log('Welcome!  Fetching your information.... ');
                     FB.api('/me', function(response) {
                         console.log('Good to see you, ' + response.name + '.');
                     });
                     getPages(response.authResponse.accessToken);
                 } else {
+                    // user cancelled login or did not fully authorize.
                     console.log('User cancelled login or did not fully authorize.');
                 }
             });
@@ -53,18 +55,21 @@
                 var pages = response.data;
                 var numOfPage = pages.length;
                 if (numOfPage <= 0) $('#pages').html("<h2>No pages found in your accounts.</h2>");
-                else { // list out the information of all pages
+                else { // list out the information of all pages in which user is the admin
                     $('#pages').append("<h2>List of your pages</h2>");
                     for (var i = 0; i < pages.length; i++) {
+                        // loop through array of pages and show information for each page
                         var page = pages[i];
-                        $('#pages').append(page.name + " (" + page.id + ")");
+                        $('#pages').append("<p>" + page.name + " (" + page.id + ")" + "</p>");
+                        getPageFanInfo(page.id, accessToken);
                     }
                 }
             });
         }
         function getPageFanInfo(pageId, accessToken) {
             FB.api("/" + pageId + "/insights/page_fans_gender_age", {access_token: accessToken}, function(response) {
-                console.log(response);
+                var values = response.data.values;
+                console.log(values[values.length-1].value); // get the latest statistic
             });
         }
     </script>

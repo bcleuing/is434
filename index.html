@@ -72,14 +72,16 @@
             FB.api("/" + pageId + "/insights/page_fans_gender_age", {access_token: accessToken}, function(response) {
                 console.log(response);
                 var values = response.data[0].values;
-                var stat = JSON.parse(values[values.length-1].value); // get the latest statistic and parse it to a JSON object
+                var stat = values[values.length-1].value; // get the latest statistic
+                console.log(stat);
                 $('#pagesFanInfo').append(
                     "<table><caption>Fan Statistics for " + pageName + "</caption>" +
                     "<tr><th></th><th>13-17</th><th>18-24</th><th>25-34</th><th>35-44</th><th>45-54</th><th>55-64</th><th>65+</th></tr>"
                 )
-                console.log(stat);
                 for (var ageGroup in stat) {
-                    console.log(ageGroup + " - " + stat[ageGroup]);
+                    if (stat.hasOwnProperty(ageGroup)) {
+                        console.log(ageGroup + " - " + stat[ageGroup]);
+                    }
                 }
             });
         }

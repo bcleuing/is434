@@ -55,7 +55,7 @@
                     // user cancelled login or did not fully authorize.
                     console.log('User cancelled login or did not fully authorize.');
                 }
-            }, {scope: 'manage_pages,read_insight'});
+            }); // {scope: 'manage_pages,read_insight'}
         }
 
         function getPages(accessToken) {

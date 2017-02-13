@@ -71,7 +71,7 @@ function getPageFanInfo(pageName, pageId, accessToken) {
         var values = (response.data[0] == null) ? null : response.data[0].values;
         if (values != null) {
             var stat = values[values.length-1].value; // get the latest statistic
-            $('#pagesFanInfo').append("<div class='row'><div class='col s12 card-panel'><h5 class='center-align blue-text'>" + pageName + "</h5>");
+            var statChartsHTML = "<div class='row'><div class='col s12 card-panel'><h5 class='center-align blue-text'>" + pageName + "</h5>";
             var formattedStat = {
                 "Female": [0,0,0,0,0,0,0],
                 "Male": [0,0,0,0,0,0,0],
@@ -89,15 +89,24 @@ function getPageFanInfo(pageName, pageId, accessToken) {
                     totalFans[ageGroupIdx] += numOfFans; // by age group
                 }
             }
+            var canvasArray = []; // for multiple charts
+            var dataArray = []; // for multiple charts
+            var count = 0;
+
             for (var genderKey in formattedStat) {
-                var newCanvas = $('<canvas/>');
-                console.log(newCanvas);
-                $('#pagesFanInfo').append('<div class="col s12 m6 l4"><h5>' + genderKey + '</h5>');
+                var canvasId = pageId + "canvas-" + (count++); // generate unique id for canvas
+                statChartsHTML += '<div class="col s12 m6 l4"><h5>' + genderKey + '</h5>';
+                statChartsHTML += "<canvas id='" + canvasId + "'></canvas></div>";
+                $('#pagesFanInfo').append(statChartsHTML);
                 var fansByAgeGroups = formattedStat[genderKey];
-                createCharts(newCanvas, 'pie', fansByAgeGroups, {});
-                $('#pagesFanInfo').append(newCanvas);
-                $('#pagesFanInfo').append('</div>');
+                canvasArray.push("#" + canvasId);
+                dataArray.push(fansByAgeGroups);
             }
+
+            $.each(canvasArray, function(index, value) { // create multiple charts by gender
+                var ctx = $(value).get(0).getContext("2d");
+                createCharts(ctx, 'pie', dataArray[index], {});
+            });
         }
     });
 }

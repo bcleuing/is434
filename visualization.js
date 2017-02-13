@@ -103,7 +103,12 @@ function getPageFanInfo(pageName, pageId, accessToken) {
                 dataArray.push(fansByAgeGroups);
             }
 
+            console.log(canvasArray);
+            console.log(dataArray);
+
             $.each(canvasArray, function(index, value) { // create multiple charts by gender
+                console.log(value);
+                console.log(dataArray[index]);
                 createCharts($(value), 'pie', dataArray[index], {});
             });
         }

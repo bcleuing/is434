@@ -71,7 +71,7 @@ function getPageFanInfo(pageName, pageId, accessToken) {
         var values = (response.data[0] == null) ? null : response.data[0].values;
         if (values != null) {
             var stat = values[values.length-1].value; // get the latest statistic
-            var statChartsHTML = "<div class='row'><div class='col s12 card-panel'><h5 class='center-align blue-text'>" + pageName + "</h5>";
+            $('#pagesFanInfo').append("<div class='row'><div class='col s12 card-panel'><h5 class='center-align blue-text'>" + pageName + "</h5>");
             var formattedStat = {
                 "Female": [0,0,0,0,0,0,0],
                 "Male": [0,0,0,0,0,0,0],
@@ -95,7 +95,7 @@ function getPageFanInfo(pageName, pageId, accessToken) {
 
             for (var genderKey in formattedStat) {
                 var canvasId = pageId + "-canvas-" + (count++); // generate unique id for canvas
-                statChartsHTML += '<div class="col s12 m6 l4"><h5>' + genderKey + '</h5>';
+                var statChartsHTML = '<div class="col s12 m6 l4"><h5>' + genderKey + '</h5>';
                 statChartsHTML += "<canvas id='" + canvasId + "'></canvas></div>";
                 $('#pagesFanInfo').append(statChartsHTML);
                 var fansByAgeGroups = formattedStat[genderKey];

@@ -90,11 +90,16 @@ function getPageFanInfo(pageName, pageId, accessToken) {
                 }
             }
             for (var genderKey in formattedStat) {
-                var newCanvas = $('<canvas/>');
                 $('#pagesFanInfo').append('<div class="col s12 m6 l4"><h5>' + genderKey + '</h5>');
+
+                var elementID = 'canvas' + $('canvas').length; // unique ID
+                $('<canvas>').attr({
+                    id: elementID
+                }).appendTo('#pagesFanInfo');
+                var canvas = document.getElementById(elementID); // use the created element
+
                 var fansByAgeGroups = formattedStat[genderKey];
-                createCharts(newCanvas, 'pie', fansByAgeGroups, {});
-                $('#pagesFanInfo').append(newCanvas);
+                createCharts(canvas, 'pie', fansByAgeGroups, {});
                 $('#pagesFanInfo').append('</div>');
             }
         }

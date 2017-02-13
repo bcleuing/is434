@@ -103,15 +103,56 @@ function getPageFanInfo(pageName, pageId, accessToken) {
                 dataArray.push(fansByAgeGroups);
             }
 
-            console.log(canvasArray);
-            console.log(dataArray);
-
             $.each(canvasArray, function(index, value) { // create multiple charts by gender
-                console.log(value);
-                console.log(dataArray[index]);
-                console.log($(value));
-                createChart($(value), 'pie', dataArray[index], {});
+                var data = {
+                    labels: ageGroupLabels,
+                    datasets: [
+                        {
+                            label: "Number of Fans",
+                			backgroundColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            data: dataArray[index],
+                        }
+                    ]
+                };
+                createChart($(value), 'pie', data, {});
             });
+
+            var canvasId = pageId + "-canvas-" + (count++); // generate unique id for canvas
+            $('#pagesFanInfo').append("<canvas id='" + canvasId + "'></canvas>");
+            var data = {
+                labels: ageGroupLabels,
+                datasets: [
+                    {
+                        label: "Number of Fans (Overall)",
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 255, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1,
+                        data: totalFans,
+                    }
+                ]
+            };
+            createChart($('#' + canvasId), 'bar', data); // create bar charts showing number of fans by age group
         }
     });
 }
@@ -122,9 +163,10 @@ function getFullGender(shortForm) {
     else return "Unknown";
 }
 
-function createChart(ctx, type, data) {
+function createChart(ctx, type, data, option) {
     var myChart = new Chart(ctx, {
         type: type,
-        data: data
+        data: data,
+        options: option
     });
 }

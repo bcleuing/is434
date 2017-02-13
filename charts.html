@@ -7,10 +7,9 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <!-- <script src="visualization.js"></script> -->
+
 </head>
 <body>
-
     <h5 class="valign center">
         <button id="loginBtn" class="waves-effect waves-light btn btn-large" onclick="_promptLogin()">Start Using the App</button>
     </h5>
@@ -31,57 +30,7 @@
                 <h5>Fan Statistics</h5>
             </div>
         </div>
-
-        <div class="row center">
-            <div class="col s12 m6 l4">
-                <h5>Male</h5>
-                <canvas id="chart1"></canvas>
-            </div>
-            <div class="col s12 m6 l4">
-                <h5>Female</h5>
-                <canvas id="chart2"></canvas>
-            </div>
-            <div class="col s12 m6 l4">
-                <h5>Unknown</h5>
-                <canvas id="chart3"></canvas>
-            </div>
-        </div>
     </div>
-
-    <script>
-    var ctx1 = document.getElementById("chart1");
-    var ctx2 = document.getElementById("chart2");
-    var ctx3 = document.getElementById("chart3");
-    var data = {
-        labels: ["13-17", "18-24", "25-34", "35-44", "45-54", "55-64", "65+"],
-        datasets: [
-            {
-                label: "Number of Fans",
-    			backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                data: [0, 42, 2, 3, 0, 0, 0],
-            }
-        ]
-    };
-    var myChart = new Chart(ctx1, {
-        type: 'pie',
-        data: data
-    });
-    var myChart = new Chart(ctx2, {
-        type: 'pie',
-        data: data
-    });
-    var myChart = new Chart(ctx3, {
-        type: 'pie',
-        data: data
-    });
-    </script>
-
+    <script src="visualization.js"></script>
 </body>
 </html>

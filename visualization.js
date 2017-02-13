@@ -92,9 +92,10 @@ function getPageFanInfo(pageName, pageId, accessToken) {
             for (var genderKey in formattedStat) {
                 var newCanvas = $('<canvas/>');
                 $('#pagesFanInfo').append('<div class="col s12 m6 l4"><h5>' + genderKey + '</h5>');
-                $('#pagesFanInfo').append(newCanvas);
                 var fansByAgeGroups = formattedStat[genderKey];
                 createCharts(newCanvas, 'pie', fansByAgeGroups, {});
+                $('#pagesFanInfo').append(newCanvas);
+                $('#pagesFanInfo').append('</div>');
             }
         }
     });

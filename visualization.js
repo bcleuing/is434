@@ -94,7 +94,7 @@ function getPageFanInfo(pageName, pageId, accessToken) {
             var count = 0;
 
             for (var genderKey in formattedStat) {
-                var canvasId = pageId + "canvas-" + (count++); // generate unique id for canvas
+                var canvasId = pageId + "-canvas-" + (count++); // generate unique id for canvas
                 statChartsHTML += '<div class="col s12 m6 l4"><h5>' + genderKey + '</h5>';
                 statChartsHTML += "<canvas id='" + canvasId + "'></canvas></div>";
                 $('#pagesFanInfo').append(statChartsHTML);
@@ -104,8 +104,7 @@ function getPageFanInfo(pageName, pageId, accessToken) {
             }
 
             $.each(canvasArray, function(index, value) { // create multiple charts by gender
-                var ctx = $(value).get(0).getContext("2d");
-                createCharts(ctx, 'pie', dataArray[index], {});
+                createCharts($(value), 'pie', dataArray[index], {});
             });
         }
     });

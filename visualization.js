@@ -76,15 +76,18 @@ function getPageFanInfo(pageName, pageId, accessToken) {
             var formattedStat = {
                 "Female": [0,0,0,0,0,0,0],
                 "Male": [0,0,0,0,0,0,0],
-                "Unknown": [0,0,0,0,0,0,0]
+                "Unknown": [0,0,0,0,0,0,0],
             }; // declare an object to store the number of fans by gender by age groups
+            var totalFans = [0,0,0,0,0,0,0]; // total numbers of fans by age groups
             var ageGroupPos = ["13-17", "18-24", "25-34", "35-44", "45-54", "55-64", "65+"];
             for (var key in stat) {
                 if (stat.hasOwnProperty(key)) {
                     var gender = getFullGender(key.split(".")[0]);
                     var ageGroup = key.split(".")[1];
                     var numOfFans = stat[key];
-                    formattedStat[gender][ageGroupPos.indexOf(ageGroup)] = numOfFans;
+                    var ageGroupIdx = ageGroupPos.indexOf(ageGroup);
+                    formattedStat[gender][ageGroupIdx] = numOfFans; // by gender by age group
+                    totalFans[ageGroupIdx] += numOfFans; // by age group
                 }
             }
             for (var genderKey in formattedStat) {
@@ -100,8 +103,17 @@ function getPageFanInfo(pageName, pageId, accessToken) {
         }
     });
 }
+
 function getFullGender(shortForm) {
     if (shortForm == "F") return "Female";
     else if (shortForm == "M") return "Male";
     else return "Unknown";
+}
+
+function createCharts(ctx, data, option) {
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: option
+    });
 }

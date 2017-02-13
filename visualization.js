@@ -130,7 +130,7 @@ function getPageFanInfo(pageName, pageId, accessToken) {
                 labels: ageGroupLabels,
                 datasets: [
                     {
-                        label: "Number of Fans"
+                        label: "Number of Fans",
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',

@@ -109,7 +109,8 @@ function getPageFanInfo(pageName, pageId, accessToken) {
             $.each(canvasArray, function(index, value) { // create multiple charts by gender
                 console.log(value);
                 console.log(dataArray[index]);
-                createCharts($(value), 'pie', dataArray[index], {});
+                console.log($(value));
+                createChart($(value), 'pie', dataArray[index], {});
             });
         }
     });
@@ -121,10 +122,9 @@ function getFullGender(shortForm) {
     else return "Unknown";
 }
 
-function createCharts(ctx, type, data, option) {
+function createChart(ctx, type, data) {
     var myChart = new Chart(ctx, {
         type: type,
-        data: data,
-        options: option
+        data: data
     });
 }

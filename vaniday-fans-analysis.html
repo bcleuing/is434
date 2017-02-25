@@ -62,10 +62,8 @@
                     lines.push(jsonData);
                 }
             }
-            console.log(ageGroupLabels);
-            console.log(lines);
 
-            var stat = lines[lines.length-1].value; // get the latest statistic
+            var stat = lines[lines.length-1]; // get the latest statistic
             var formattedStat = {
                 "Female": [0,0,0,0,0,0,0],
                 "Male": [0,0,0,0,0,0,0],

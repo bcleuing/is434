@@ -26,27 +26,10 @@
                 type: "GET",
                 dataType: "text",
                 success: function(data) {
-                    processData(data);
+                    getPageFanInfo(data);
                 }
             })
         });
-
-        function processData(allText) {
-            var allTextLines = allText.split(/\r\n|\n/);
-            var headers = allTextLines[0].split(',');
-            var lines = [];
-            for (var i = 1; i < allTextLines.length; i++) {
-                var data = allTextLines[i].split(',');
-                if (data.length == headers.length) {
-                    for (var j = 0; j < headers.length; j++) {
-                        var jsonData = {};
-                        jsonData[headers[j]] = data[j];
-                    }
-                    lines.push(jsonData);
-                }
-            }
-            console.log(lines);
-        }
     </script>
 
 </body>

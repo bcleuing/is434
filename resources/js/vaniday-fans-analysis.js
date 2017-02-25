@@ -1,4 +1,4 @@
-function getPageFanInfo(values) {
+function getPageFanInfo(allText) {
     var allTextLines = allText.split(/\r\n|\n/);
     var headers = allTextLines[0].split(',');
     var headersLength = headers.length;

@@ -40,6 +40,7 @@
         function processData(allText) {
             var allTextLines = allText.split(/\r\n|\n/);
             var headers = allTextLines[0].split(',');
+            headers.shift(); // remove the date column
             var headersLength = headers.length;
 
             var jsonData = {};
@@ -51,6 +52,7 @@
             var lines = [];
             for (i = 1; i < allTextLines.length; i++) {
                 var data = allTextLines[i].split(',');
+                data.shift(); // remove the date record
                 if (data.length == headersLength) {
                     for (var j = 0; j < headersLength; j++) {
                         jsonData[headers[j]] = data[j];
@@ -59,7 +61,7 @@
                 }
             }
             console.log(lines);
-            getPageFanInfo(allText);
+            getPageFanInfo(lines);
         }
     </script>
 

@@ -100,9 +100,8 @@ function createChart(ctx, type, data, options) {
 }
 
 function generateChartLinks(canvasId) {
-    var canvas = $('#' + canvasId);
-    var link = canvas.toDataURL();
-    canvas.after(
+    var link = document.getElementById(canvasId).toDataURL("image/png");
+     $('#' + canvasId).after(
         '<a href="' + link + '" class="waves-light waves-effect btn-large" download>' +
         '<i class="material-icons right">file_download</i>Download Chart</a>'
     );

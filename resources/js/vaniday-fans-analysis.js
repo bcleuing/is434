@@ -54,7 +54,12 @@ function renderCharts(formattedStat, totalFans) {
     });
 
     var canvasId = "vaniday-canvas-" + (count++); // generate unique id for canvas
-    $('#pagesFanInfoCharts').append("<div class='col s12 center' style='margin-top: 20px;'><h5>Number of Fans (Overall)</h5>'<canvas id='" + canvasId + "'></canvas></div>");
+    $('#pagesFanInfoCharts').append(
+        "<div class='col s12 center' style='margin-top: 20px;'>" +
+        "<h5>Number of Fans (Overall)</h5>'<canvas id='" + canvasId + "'></canvas>" +
+        '<a href="#" class="waves-light waves-effect btn-large" download>' +
+        '<i class="material-icons right">file_download</i>Download Chart</a></div>'
+    );
     var data = {
         labels: ageGroupLabels,
         datasets: [
@@ -100,9 +105,6 @@ function createChart(ctx, type, data, canvasId) {
 }
 
 function generateChartLinks(canvasId) {
-    var link = document.getElementById(canvasId).toDataURL();
-     $('#' + canvasId).after(
-        '<a href="' + link + '" class="waves-light waves-effect btn-large" download>' +
-        '<i class="material-icons right">file_download</i>Download Chart</a>'
-    );
+    var link = document.getElementById(canvasId).toDataURL("img/jpg");
+     $('#' + canvasId).next('a').attr('href', link);
 }

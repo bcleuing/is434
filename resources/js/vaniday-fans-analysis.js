@@ -1,3 +1,5 @@
+var ageGroupLabels = ["13-17", "18-24", "25-34", "35-44", "45-54", "55-64", "65+"];
+
 function renderTables(formattedStat) {
     var statTableHTML = "<div class='row'><div class='col s12 card-panel'><h5 class='center-align blue-text'>" + "Vaniday" + "</h5><table class='centered bordered'><thead>" +
     "<tr><th></th><th>13-17</th><th>18-24</th><th>25-34</th><th>35-44</th><th>45-54</th><th>55-64</th><th>65+</th><th>Total</th></tr></thead><tbody>";
@@ -10,9 +12,7 @@ function renderTables(formattedStat) {
         var totalFans = fansByAgeGroups.reduce(function(a, b) { return Number(a) + Number(b); }, 0);
         statTableHTML += "<td>" + totalFans + "</tr>";
     }
-    $('#pagesFanInfoTable')
-        .append(statTableHTML + "</tbody></table></div>"); // render the table to the pagep
-        .show(500);
+    $('#pagesFanInfoTable').append(statTableHTML + "</tbody></table></div>") // render the table to the page
 }
 
 function renderCharts(formattedStat, totalFans) {

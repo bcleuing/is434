@@ -9,7 +9,7 @@
 
     <div class="container">
         <div class="row center">
-            <div class="col s12" id="pagesFanInfoTable" hidden>
+            <div class="col s12" id="pagesFanInfoTable">
                 <h3 class="header">Fan Statistics (Table)</h3>
             </div>
         </div>
@@ -17,7 +17,7 @@
         <div class="divider"></div>
 
         <div class="row center">
-            <div class="col s12" id="pagesFanInfoCharts" hidden>
+            <div class="col s12" id="pagesFanInfoCharts">
                 <h3 class="header">Fan Statistics (Charts)</h3>
             </div>
         </div>
@@ -26,9 +26,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="resources/js/vaniday-fans-analysis.js"></script>
     <script>
-        var ageGroupLabels = ["13-17", "18-24", "25-34", "35-44", "45-54", "55-64", "65+"];
-        
         $(function() {
             $.ajax({
                 url: "resources/data/lifetime-likes-by-gender-and-age.csv",
@@ -87,7 +86,6 @@
             renderCharts(formattedStat, totalFans);
         }
     </script>
-    <script src="resources/js/vaniday-fans-analysis.js"></script>
 
 </body>
 </html>

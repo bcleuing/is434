@@ -28,7 +28,7 @@ function renderCharts(formattedStat, totalFans) {
         statChartsHTML += "<canvas id='" + canvasId + "'></canvas></div>";
         $('#pagesFanInfoCharts').append(statChartsHTML);
         var fansByAgeGroups = formattedStat[genderKey];
-        canvasArray.push("#" + canvasId);
+        canvasArray.push(canvasId);
         dataArray.push(fansByAgeGroups);
     }
 
@@ -50,7 +50,7 @@ function renderCharts(formattedStat, totalFans) {
                 }
             ]
         };
-        createChart($(value), 'pie', data, value);
+        createChart($('#' + value), 'pie', data, value);
     });
 
     var canvasId = "vaniday-canvas-" + (count++); // generate unique id for canvas

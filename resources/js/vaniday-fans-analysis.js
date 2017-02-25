@@ -50,7 +50,7 @@ function renderCharts(formattedStat, totalFans) {
                 }
             ]
         };
-        createChart($(value), 'pie', data, {});
+        createChart($(value), 'pie', data, value);
     });
 
     var canvasId = "vaniday-canvas-" + (count++); // generate unique id for canvas
@@ -81,29 +81,21 @@ function renderCharts(formattedStat, totalFans) {
             }
         ]
     };
-    /*
-    options = {
-        animation: {
-            onComplete: function() {
-                generateChartLinks(canvasId);
-            }
-        }
-    }
-    */
-    console.log(canvasId);
-    options = {
-        onAnimationComplete: function() {
-            generateChartLinks(canvasId);
-        }
-    }
-    createChart($('#' + canvasId), 'bar', data, options); // create bar charts showing number of fans by age group
+    createChart($('#' + canvasId), 'bar', data, canvasId); // create bar charts showing number of fans by age group
 }
 
-function createChart(ctx, type, data, options) {
+function createChart(ctx, type, data, canvasId) {
+    console.log(canvasId);
     var myChart = new Chart(ctx, {
         type: type,
         data: data,
-        options: options
+        options = {
+            animation: {
+                onComplete: function() {
+                    generateChartLinks(canvasId);
+                }
+            }
+        }
     });
 }
 

@@ -1,5 +1,6 @@
 function getPageFanInfo(lines) {
     var stat = lines[lines.length-1];
+    console.log(stat);
 
     var statTableHTML = "<div class='row'><div class='col s12 card-panel'><h5 class='center-align blue-text'>" + "Vaniday" + "</h5><table class='centered bordered'><thead>" +
     "<tr><th></th><th>13-17</th><th>18-24</th><th>25-34</th><th>35-44</th><th>45-54</th><th>55-64</th><th>65+</th><th>Total</th></tr></thead><tbody>";

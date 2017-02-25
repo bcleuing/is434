@@ -25,7 +25,8 @@ function renderCharts(formattedStat, totalFans) {
     for (var genderKey in formattedStat) {
         var canvasId = "vaniday-canvas-" + (count++); // generate unique id for canvas
         var statChartsHTML = '<div class="col s12 m6 l4"><h5>' + genderKey + '</h5>';
-        statChartsHTML += "<canvas id='" + canvasId + "'></canvas></div>";
+        statChartsHTML += "<canvas id='" + canvasId + "'></canvas>";
+        statChartsHTML += '<a href="#" class="waves-light waves-effect btn-large" download><i class="material-icons right">save</i>Save Chart</a></div>';
         $('#pagesFanInfoCharts').append(statChartsHTML);
         var fansByAgeGroups = formattedStat[genderKey];
         canvasArray.push(canvasId);
@@ -58,7 +59,7 @@ function renderCharts(formattedStat, totalFans) {
         "<div class='col s12 center' style='margin-top: 20px;'>" +
         "<h5>Number of Fans (Overall)</h5>'<canvas id='" + canvasId + "'></canvas>" +
         '<a href="#" class="waves-light waves-effect btn-large" download>' +
-        '<i class="material-icons right">file_download</i>Download Chart</a></div>'
+        '<i class="material-icons right">save</i>Save Chart</a></div>'
     );
     var data = {
         labels: ageGroupLabels,
@@ -105,6 +106,6 @@ function createChart(ctx, type, data, canvasId) {
 }
 
 function generateChartLinks(canvasId) {
-    var link = document.getElementById(canvasId).toDataURL("img/jpg");
+    var link = document.getElementById(canvasId).toDataURL("img/jpeg");
      $('#' + canvasId).next('a').attr('href', link);
 }

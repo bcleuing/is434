@@ -89,7 +89,7 @@ function createChart(ctx, type, data, canvasId) {
     var myChart = new Chart(ctx, {
         type: type,
         data: data,
-        options = {
+        options: {
             animation: {
                 onComplete: function() {
                     generateChartLinks(canvasId);

@@ -81,11 +81,19 @@ function renderCharts(formattedStat, totalFans) {
             }
         ]
     };
+    /*
     options = {
         animation: {
             onComplete: function() {
                 generateChartLinks(canvasId);
             }
+        }
+    }
+    */
+    console.log(canvasId);
+    options = {
+        onAnimationComplete: function() {
+            generateChartLinks(canvasId);
         }
     }
     createChart($('#' + canvasId), 'bar', data, options); // create bar charts showing number of fans by age group

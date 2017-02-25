@@ -1,25 +1,4 @@
-function getPageFanInfo(allText) {
-    var allTextLines = allText.split(/\r\n|\n/);
-    var headers = allTextLines[0].split(',');
-    var headersLength = headers.length;
-
-    var jsonData = {};
-    for (var i = 0; i < headersLength; i++) {
-        // initialize the JSON object
-        jsonData[headers[i]] = 0;
-    }
-
-    var lines = [];
-    for (i = 1; i < allTextLines.length; i++) {
-        var data = allTextLines[i].split(',');
-        if (data.length == headersLength) {
-            for (var j = 0; j < headersLength; j++) {
-                jsonData[headers[j]] = data[j];
-            }
-            lines.push(jsonData);
-        }
-    }
-    console.logs(line);
+function getPageFanInfo(lines) {
     var stat = lines[lines.length-1];
 
     var statTableHTML = "<div class='row'><div class='col s12 card-panel'><h5 class='center-align blue-text'>" + "Vaniday" + "</h5><table class='centered bordered'><thead>" +
@@ -49,7 +28,7 @@ function getPageFanInfo(allText) {
         var totalFans = fansByAgeGroups.reduce(function(a, b) { return a + b; }, 0);
         statTableHTML += "<td>" + totalFans + "</tr>";
     }
-    $('#pagesFanInfo').append(statTableHTML + "</tbody></table></div>"); // render the table to the pagep
+    $('#pagesFanInfoTable').append(statTableHTML + "</tbody></table></div>"); // render the table to the pagep
 }
 
 function getFullGender(shortForm) {

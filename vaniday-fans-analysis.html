@@ -9,8 +9,14 @@
 
     <div class="container">
         <div class="row">
-            <div class="col s12" id="pagesFanInfo" hidden>
-                <h5>Fan Statistics</h5>
+            <div class="col s12" id="pagesFanInfoTable" hidden>
+                <h5>Fan Statistics (Table)</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12" id="pagesFanInfoChart" hidden>
+                <h5>Fan Statistics (Charts)</h5>
             </div>
         </div>
     </div>
@@ -26,10 +32,35 @@
                 type: "GET",
                 dataType: "text",
                 success: function(data) {
-                    getPageFanInfo(data);
+                    processData(data);
                 }
             })
         });
+
+        function processData(data) {
+            var allTextLines = allText.split(/\r\n|\n/);
+            var headers = allTextLines[0].split(',');
+            var headersLength = headers.length;
+
+            var jsonData = {};
+            for (var i = 0; i < headersLength; i++) {
+                // initialize the JSON object
+                jsonData[headers[i]] = 0;
+            }
+
+            var lines = [];
+            for (i = 1; i < allTextLines.length; i++) {
+                var data = allTextLines[i].split(',');
+                if (data.length == headersLength) {
+                    for (var j = 0; j < headersLength; j++) {
+                        jsonData[headers[j]] = data[j];
+                    }
+                    lines.push(jsonData);
+                }
+            }
+            console.logs(lines);
+            getPageFanInfo(allText);
+        }
     </script>
 
 </body>

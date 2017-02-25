@@ -81,13 +81,29 @@ function renderCharts(formattedStat, totalFans) {
             }
         ]
     };
-    createChart($('#' + canvasId), 'bar', data); // create bar charts showing number of fans by age group
+    options = {
+        animation: {
+            onComplete: function() {
+                generateChartLinks(canvasId);
+            }
+        }
+    }
+    createChart($('#' + canvasId), 'bar', data, options); // create bar charts showing number of fans by age group
 }
 
-function createChart(ctx, type, data, option) {
+function createChart(ctx, type, data, options) {
     var myChart = new Chart(ctx, {
         type: type,
         data: data,
-        options: option
+        options: options
     });
+}
+
+function generateChartLinks(canvasId) {
+    var canvas = $('#' + canvasId);
+    var link = canvas.toDataURL();
+    canvas.after(
+        '<a href="' + link + '" class="waves-light waves-effect btn-large" download>' +
+        '<i class="material-icons right">file_download</i>Download Chart</a>'
+    );
 }

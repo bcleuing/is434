@@ -23,7 +23,7 @@ function renderCharts(formattedStat, totalFans) {
     var count = 0;
 
     for (var genderKey in formattedStat) {
-        var canvasId = pageId + "-canvas-" + (count++); // generate unique id for canvas
+        var canvasId = "vaniday-canvas-" + (count++); // generate unique id for canvas
         var statChartsHTML = '<div class="col s12 m6 l4"><h5>' + genderKey + '</h5>';
         statChartsHTML += "<canvas id='" + canvasId + "'></canvas></div>";
         $('#pagesFanInfoCharts').append(statChartsHTML);
@@ -53,7 +53,7 @@ function renderCharts(formattedStat, totalFans) {
         createChart($(value), 'pie', data, {});
     });
 
-    var canvasId = pageId + "-canvas-" + (count++); // generate unique id for canvas
+    var canvasId = "vaniday-canvas-" + (count++); // generate unique id for canvas
     $('#pagesFanInfoCharts').append("<div class='col s12 center' style='margin-top: 20px;'><h5>Number of Fans (Overall)</h5>'<canvas id='" + canvasId + "'></canvas></div>");
     var data = {
         labels: ageGroupLabels,
@@ -82,12 +82,6 @@ function renderCharts(formattedStat, totalFans) {
         ]
     };
     createChart($('#' + canvasId), 'bar', data); // create bar charts showing number of fans by age group
-}
-
-function getFullGender(shortForm) {
-    if (shortForm == "F") return "Female";
-    else if (shortForm == "M") return "Male";
-    else return "Unknown";
 }
 
 function createChart(ctx, type, data, option) {

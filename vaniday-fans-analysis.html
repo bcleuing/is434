@@ -62,6 +62,8 @@
                     lines.push(jsonData);
                 }
             }
+            console.log(ageGroupLabels);
+            console.log(lines);
 
             var stat = lines[lines.length-1].value; // get the latest statistic
             var formattedStat = {
@@ -81,9 +83,16 @@
                     totalFans[ageGroupIdx] += numOfFans; // by age group
                 }
             }
+            console.log(formattedStat);
 
             renderTables(formattedStat);
             renderCharts(formattedStat, totalFans);
+        }
+
+        function getFullGender(shortForm) {
+            if (shortForm == "F") return "Female";
+            else if (shortForm == "M") return "Male";
+            else return "Unknown";
         }
     </script>
 

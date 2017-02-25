@@ -78,10 +78,9 @@
                     var numOfFans = stat[key];
                     var ageGroupIdx = ageGroupLabels.indexOf(ageGroup);
                     formattedStat[gender][ageGroupIdx] = numOfFans; // by gender by age group
-                    totalFans[ageGroupIdx] += numOfFans; // by age group
+                    totalFans[ageGroupIdx] += Number(numOfFans); // by age group
                 }
             }
-            console.log(formattedStat);
 
             renderTables(formattedStat);
             renderCharts(formattedStat, totalFans);

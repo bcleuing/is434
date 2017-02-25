@@ -107,6 +107,6 @@ function createChart(ctx, type, data, canvasId) {
 }
 
 function generateChartLinks(canvasId) {
-    var link = document.getElementById(canvasId).toDataURL("image/jpeg");
+    var link = document.getElementById(canvasId).toDataURL("image/jpeg", 1.0);
      $('#' + canvasId).next('a').attr('href', link);
 }
